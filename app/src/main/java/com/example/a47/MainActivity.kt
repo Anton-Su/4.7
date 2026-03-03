@@ -67,14 +67,14 @@ fun Greeting(modifier: Modifier = Modifier, context: ComponentActivity) {
         if (bound.value){
         Text(
             text = "${numberState.value}",
-            fontSize = 70.sp,
+            fontSize = 150.sp,
             fontWeight = FontWeight.Bold
         )}
         else
             Text(
                 text = "—",
-                fontSize = 70.sp,
-                fontWeight = FontWeight.Bold
+                fontSize = 150.sp,
+                fontWeight = FontWeight.Bold,
             )
         Spacer(modifier = Modifier.height(24.dp))
         Row {
@@ -82,7 +82,7 @@ fun Greeting(modifier: Modifier = Modifier, context: ComponentActivity) {
                 Button(modifier = Modifier.size(width = 300.dp, height = 80.dp), onClick = {
                     serviceConnection.value = object : ServiceConnection {
                         override fun onServiceConnected(name: ComponentName?, binder: IBinder?) {
-                            val binder = binder as BindGenerator.RandomBinder
+                            binder as BindGenerator.RandomBinder
                             val service = binder.service
                             CoroutineScope(Dispatchers.Main).launch {
                                 service.number.collect {
@@ -103,7 +103,7 @@ fun Greeting(modifier: Modifier = Modifier, context: ComponentActivity) {
                     )
                 }
                 ) {
-                    Text("Подключиться")
+                    Text("Подключиться", fontSize = 25.sp)
                 }
             }
             else
@@ -111,7 +111,7 @@ fun Greeting(modifier: Modifier = Modifier, context: ComponentActivity) {
                     context.unbindService(serviceConnection.value!!)
                     bound.value = false
                 }) {
-                    Text("Отключиться")
+                    Text("Отключиться", fontSize = 25.sp)
                 }
             }
         }
