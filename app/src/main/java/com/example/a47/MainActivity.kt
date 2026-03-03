@@ -82,8 +82,7 @@ fun Greeting(modifier: Modifier = Modifier, context: ComponentActivity) {
                 Button(modifier = Modifier.size(width = 300.dp, height = 80.dp), onClick = {
                     serviceConnection.value = object : ServiceConnection {
                         override fun onServiceConnected(name: ComponentName?, binder: IBinder?) {
-                            binder as BindGenerator.RandomBinder
-                            val service = binder.service
+                            val service = (binder as BindGenerator.RandomBinder).service
                             CoroutineScope(Dispatchers.Main).launch {
                                 service.number.collect {
                                     numberState.value = it
